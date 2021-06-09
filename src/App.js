@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useEffect, useState} from "react";
+import axios from 'axios';
+import Teacher from "./teacher/Teacher";
 
 function App() {
+  const [teachers, setTeachers] = useState([] );
+
+  useEffect(() => {
+    axios.get(
+        'http://localhost:8080/api/teacher'
+    ).then( (response) => {
+        setTeachers(response.data)
+    }).catch(function(error){
+        console.log("Error")
+    });
+  }, []);
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {teachers.map(teacher =>
+          <Teacher key={teacher.id}  teacher={teacher}/>
+      )}
     </div>
   );
 }
