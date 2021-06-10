@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import StudentDto from "./StudentDto";
 
 class StudentProps {
+    key: Number;
     student: StudentDto;
     deleteStudent: Function;
     updateStudent: Function;
@@ -9,7 +10,7 @@ class StudentProps {
 
 
 function Student(props: StudentProps) {
-    const [isPopUpOpen, setIsPopUpOpen] = useState(false);
+    const [isEditStudentPopUpOpen, setisEditStudentPopUpOpen] = useState(false);
 
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
@@ -31,7 +32,7 @@ function Student(props: StudentProps) {
     }, []);
 
     const updateStudent = (event) =>  {
-        togglePopup();
+        toggleEditStudentPopUp();
         setFirstName(firstNameInput);
         setLastName(lastNameInput);
         setgradeAverage(gradeAverageInput);
@@ -45,19 +46,20 @@ function Student(props: StudentProps) {
             });
     }
     const deleteStudent = (event) => {
-        event.preventDefault();
-        togglePopup();
         props.deleteStudent(props.student.id);
+        event.preventDefault();
+        toggleEditStudentPopUp();
     }
-    const togglePopup = () => {
-        setIsPopUpOpen(!isPopUpOpen);
+
+    const toggleEditStudentPopUp = () => {
+        setisEditStudentPopUpOpen(!isEditStudentPopUpOpen);
     }
 
     return (
         <div className="Student">
             <li>{"Student: " + firstName + " " + lastName + ". Average grade = " + gradeAverage}
-                <input type="button" value="Edit" onClick={togglePopup}/>
-                {isPopUpOpen &&
+                <input type="button" value="Edit" onClick={toggleEditStudentPopUp}/>
+                {isEditStudentPopUpOpen &&
                         <form onSubmit={updateStudent}>
                             <label> First name:
                                 <input defaultValue={firstNameInput} onChange={e => setFirstNameInput(e.target.value)}  type="text" minLength="3" maxLength="15"/>
@@ -69,7 +71,7 @@ function Student(props: StudentProps) {
                                 <input defaultValue={gradeAverageInput} onChange={e => setgradeAverageInput(e.target.value)} type="number" step="0.01" min="2.0" max="5.0"/>
                             </label>
                             <input type="submit" value="Save" />
-                            <input type="button" value="Cancel" onClick={togglePopup} />
+                            <input type="button" value="Cancel" onClick={toggleEditStudentPopUp} />
                             <input type="button" value="Delete" onClick={deleteStudent} />
                         </form>
                 }
