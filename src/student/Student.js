@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import StudentDto from "./StudentDto";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class StudentProps {
     key: Number;
@@ -31,7 +32,7 @@ function Student(props: StudentProps) {
 
     }, []);
 
-    const updateStudent = (event) =>  {
+    const updateStudent = (event) => {
         toggleEditStudentPopUp();
         setFirstName(firstNameInput);
         setLastName(lastNameInput);
@@ -57,23 +58,32 @@ function Student(props: StudentProps) {
 
     return (
         <div className="Student">
-            <li>{"Student: " + firstName + " " + lastName + ". Average grade = " + gradeAverage}
-                <input type="button" value="Edit" onClick={toggleEditStudentPopUp}/>
+            <li class="list-group-item list-group-item-action list-group-item-secondary">{"Student: " + firstName + " " + lastName + ". Average grade = " + gradeAverage}
+
+                <button type="button" className="btn btn-outline-dark m-1" onClick={toggleEditStudentPopUp}>Edit student
+                </button>
                 {isEditStudentPopUpOpen &&
-                        <form onSubmit={updateStudent}>
-                            <label> First name:
-                                <input defaultValue={firstNameInput} onChange={e => setFirstNameInput(e.target.value)}  type="text" minLength="3" maxLength="15"/>
-                            </label>
-                            <label> Last name:
-                                <input defaultValue={lastNameInput} onChange={e => setLastNameInput(e.target.value)} type="text" minLength="3" maxLength="15"/>
-                            </label>
-                            <label> Grade average:
-                                <input defaultValue={gradeAverageInput} onChange={e => setgradeAverageInput(e.target.value)} type="number" step="0.01" min="2.0" max="5.0"/>
-                            </label>
-                            <input type="submit" value="Save" />
-                            <input type="button" value="Cancel" onClick={toggleEditStudentPopUp} />
-                            <input type="button" value="Delete" onClick={deleteStudent} />
-                        </form>
+                <form class="form-inline" onSubmit={updateStudent}>
+                    <label> First name:
+                        <input class="form-control mb-2 mr-sm-2" defaultValue={firstNameInput}
+                               onChange={e => setFirstNameInput(e.target.value)} type="text" minLength="3"
+                               maxLength="15"/>
+                    </label>
+                    <label> Last name:
+                        <input class="form-control mb-2 mr-sm-2" defaultValue={lastNameInput}
+                               onChange={e => setLastNameInput(e.target.value)} type="text" minLength="3"
+                               maxLength="15"/>
+                    </label>
+                    <label> Grade average:
+                        <input class="form-control mb-2 mr-sm-2" defaultValue={gradeAverageInput}
+                               onChange={e => setgradeAverageInput(e.target.value)} type="number" step="0.01" min="2.0"
+                               max="5.0"/>
+                    </label>
+                    <button type="submit" class="btn btn-success">Save</button>
+                    <button type="button" class="btn btn-secondary" onClick={toggleEditStudentPopUp}>Cancel</button>
+                    <button type="button" class="btn btn-danger" onClick={deleteStudent}>Delete</button>
+
+                </form>
                 }
             </li>
         </div>

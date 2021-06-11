@@ -4,4 +4,5 @@ class StudentDto {
     lastName: String;
     gradeAverage: Number;
 }
+
 export default StudentDto;

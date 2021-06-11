@@ -7,4 +7,5 @@ class TeacherDto {
     startedWork: String;
     students: StudentDto[];
 }
+
 export default TeacherDto;
