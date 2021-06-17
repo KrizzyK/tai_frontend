@@ -19,11 +19,11 @@ function Teacher(props: TeacherProps) {
     // teacher
     const [isEditTeacherPopUpOpen, setisEditTeacherPopUpOpen] = useState(false);
 
-    const [firstNameTeacher, setFirstNameTeacher] = useState("");
-    const [lastNameTeacher, setLastNameTeacher] = useState("");
+    const [firstNameTeacher, setFirstNameTeacher] = useState(props.teacher.firstName);
+    const [lastNameTeacher, setLastNameTeacher] = useState(props.teacher.lastName);
 
-    const [firstNameEditTeacherInput, setFirstNameTeacherInput] = useState("");
-    const [lastNameEditTeacherInput, setLastNameTeacherInput] = useState("");
+    const [firstNameEditTeacherInput, setFirstNameTeacherInput] = useState(props.teacher.firstName);
+    const [lastNameEditTeacherInput, setLastNameTeacherInput] = useState(props.teacher.lastName);
 
     // his students
     const [isAddStudentPopUpOpen, setIsAddStudentPopUpOpen] = useState(false);
@@ -32,27 +32,9 @@ function Teacher(props: TeacherProps) {
     const [lastNameNewStudentInput, setLastNameStudentInput] = useState("");
     const [gradeAverageNewStudentInput, setgradeAverageStudentInput] = useState(2.0);
 
-    const [teacher, setTeacher] = useState(
-        {
-            id: 0,
-            firstName: "",
-            lastName: "",
-            startedWork: ""
-        }
-    );
-    const [students, setStudents] = useState([]);
+    const [teacher, setTeacher] = useState(props.teacher);
+    const [students, setStudents] = useState(props.teacher.students);
 
-
-    useEffect(() => {
-        setFirstNameTeacher(props.teacher.firstName);
-        setLastNameTeacher(props.teacher.lastName);
-
-        setFirstNameTeacherInput(props.teacher.firstName);
-        setLastNameTeacherInput(props.teacher.lastName);
-
-        setTeacher(props.teacher);
-        setStudents(props.teacher.students);
-    }, []);
 
     const updateTeacher = (event) => {
         toggleEditTeacherPopup();
@@ -123,7 +105,6 @@ function Teacher(props: TeacherProps) {
     return (
         <div className="Teacher">
             <li class="list-group-item list-group-item-action list-group-item-primary">Teacher: {firstNameTeacher + " " + lastNameTeacher + ", works here from: " + formatDate(teacher.startedWork)}
-                {/*<input type="button" value="Edit teacher" onClick={toggleEditTeacherPopup}/>*/}
                 <button type="button" className="btn btn-outline-dark m-1" onClick={toggleEditTeacherPopup}>Edit teacher
                 </button>
                 {
@@ -167,7 +148,7 @@ function Teacher(props: TeacherProps) {
                                    maxLength="15"/>
                         </label>
                         <label> Grade average:
-                            <input class="form-control mb-2 mr-sm-2"
+                            <input class="form-control mb-2 mr-sm-2" defaultValue="2.0"
                                    onChange={e => setgradeAverageStudentInput(e.target.value)} type="number" step="0.01"
                                    min="2.0" max="5.0"/>
                         </label>

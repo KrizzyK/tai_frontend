@@ -13,24 +13,13 @@ class StudentProps {
 function Student(props: StudentProps) {
     const [isEditStudentPopUpOpen, setisEditStudentPopUpOpen] = useState(false);
 
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [gradeAverage, setgradeAverage] = useState(2.0);
+    const [firstName, setFirstName] = useState(props.student.firstName);
+    const [lastName, setLastName] = useState(props.student.lastName);
+    const [gradeAverage, setgradeAverage] = useState(props.student.gradeAverage);
 
-    const [firstNameInput, setFirstNameInput] = useState("");
-    const [lastNameInput, setLastNameInput] = useState("");
-    const [gradeAverageInput, setgradeAverageInput] = useState(2.0);
-
-    useEffect(() => {
-        setFirstName(props.student.firstName);
-        setLastName(props.student.lastName);
-        setgradeAverage(props.student.gradeAverage);
-
-        setFirstNameInput(props.student.firstName);
-        setLastNameInput(props.student.lastName);
-        setgradeAverageInput(props.student.gradeAverage);
-
-    }, []);
+    const [firstNameInput, setFirstNameInput] = useState(props.student.firstName);
+    const [lastNameInput, setLastNameInput] = useState(props.student.lastName);
+    const [gradeAverageInput, setgradeAverageInput] = useState(props.student.gradeAverage);
 
     const updateStudent = (event) => {
         toggleEditStudentPopUp();
